@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameView extends View{
     private Resources res;
@@ -21,7 +22,7 @@ public class GameView extends View{
     private boolean isInit;
     private Bitmap bmpBall;
     private Matrix matrix;
-    private float ballW,ballH;
+    private float ballW,ballH,ballX,ballY;
     Timer timer;
 
     public GameView(Context context, AttributeSet attrs) {
@@ -36,11 +37,20 @@ public class GameView extends View{
         viewH =getHeight();viewW=getWidth();
         Log.v("shine",viewW +"x" + viewH);
 
-        bmpBall = BitmapFactory.decodeResource(res,R.drawable.b1);
+        bmpBall = BitmapFactory.decodeResource(res,R.drawable.b0);
         ballW = viewW/12f; ballH = ballW;
         bmpBall = resizeBmp(bmpBall, ballW, ballH);
 
+        timer.schedule(new BallTask(),1000,60);
+
         isInit = true;
+    }
+    private class BallTask extends TimerTask {
+        @Override
+        public void run() {
+            ballX += 10; ballY += 10;
+            postInvalidate();  // 重要
+        }
     }
 
     Bitmap resizeBmp(Bitmap src, float width, float height){
@@ -54,7 +64,7 @@ public class GameView extends View{
         super.onDraw(canvas);
         if(!isInit) init();
 
-        canvas.drawBitmap(bmpBall,0,0,null);  //畫個ball
+        canvas.drawBitmap(bmpBall,ballX,ballY,null);  //畫個ball
 
     }
 }
