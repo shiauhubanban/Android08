@@ -32,14 +32,18 @@ public class GameView extends View{
     private void init(){
         viewH =getHeight();viewW=getWidth();
         Log.v("shine",viewW +"x" + viewH);
+
         bmpBall = BitmapFactory.decodeResource(res,R.drawable.b1);
         ballW = viewW/12f; ballH = ballW;
-
-        matrix.postScale(ballW/bmpBall.getWidth(),ballH/bmpBall.getHeight());
-        matrix.postScale(ballW/bmpBall.getWidth(), ballH/bmpBall.getHeight());
-        bmpBall = Bitmap.createBitmap(bmpBall,0,0,bmpBall.getWidth(),bmpBall.getHeight(),matrix,false);
+        bmpBall = resizeBmp(bmpBall, ballW, ballH);
 
         isInit = true;
+    }
+
+    Bitmap resizeBmp(Bitmap src, float width, float height){
+        matrix.reset();
+        matrix.postScale(width/src.getWidth(), height/src.getHeight());
+        return Bitmap.createBitmap(src,0,0,src.getWidth(),src.getHeight(),matrix,false);
     }
 
     @Override
