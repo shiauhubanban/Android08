@@ -8,8 +8,8 @@ private ShineView shineView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        shineView = new ShineView(this);
-        setContentView(shineView);
+        //shineView = new ShineView(this);
+        //setContentView(shineView);
         setContentView(R.layout.activity_main);
     }
 }
