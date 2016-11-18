@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import java.util.Timer;
+
 public class GameView extends View{
     private Resources res;
     private Context context;
@@ -20,13 +22,14 @@ public class GameView extends View{
     private Bitmap bmpBall;
     private Matrix matrix;
     private float ballW,ballH;
+    Timer timer;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         res = context.getResources();
         matrix = new Matrix();
-
+        timer = new Timer();
         //setBackgroundColor(Color.YELLOW);
     }
     private void init(){
